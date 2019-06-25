@@ -33,7 +33,7 @@ def create_app():
             return (
                 '<?xml version="1.0" encoding="utf-8"?>'
                 '<Data><Status>True</Status></Data>',
-                {'Content-Type': 'text/xml'},
+                {'Content-Type': 'application/xml'},
             )
 
     return app
