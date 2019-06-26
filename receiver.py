@@ -7,7 +7,7 @@ def create_app():
 
     app.config.from_pyfile('config.py')
     s3_bucket = app.config['S3_BUCKET']
-    s3_prefix = app.config.get('S3_PREFIX')
+    s3_prefix = app.config.get('S3_PREFIX', '')
 
     @app.route('/')
     def hello():
