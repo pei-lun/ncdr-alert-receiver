@@ -1,3 +1,5 @@
+from os import environ
+
 import boto3
 from flask import Flask, request
 
@@ -5,9 +7,13 @@ from flask import Flask, request
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
 
-    app.config.from_pyfile('config.py')
-    s3_bucket = app.config['S3_BUCKET']
-    s3_prefix = app.config.get('S3_PREFIX', '')
+    app.config.from_pyfile('config.py', silent=True)
+    s3_bucket = (
+        app.config['S3_BUCKET']
+        if 'S3_BUCKET' in app.config
+        else environ['S3_BUCKET']
+    )
+    s3_prefix = app.config.get('S3_PREFIX', environ.get('S3_PREFIX', ''))
 
     @app.route('/')
     def hello():
