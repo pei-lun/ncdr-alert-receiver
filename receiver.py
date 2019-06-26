@@ -8,12 +8,12 @@ def create_app():
     app = Flask(__name__, instance_relative_config=True)
 
     app.config.from_pyfile('config.py', silent=True)
-    s3_bucket = (
-        app.config['S3_BUCKET']
-        if 'S3_BUCKET' in app.config
-        else environ['S3_BUCKET']
-    )
-    s3_prefix = app.config.get('S3_PREFIX', environ.get('S3_PREFIX', ''))
+    if 'S3_BUCKET' in environ:
+        app.config['S3_BUCKET'] = environ['S3_BUCKET']
+    if 'S3_PREFIX' in environ:
+        app.config['S3_PREFIX'] = environ['S3_PREFIX']
+    s3_bucket = app.config['S3_BUCKET']
+    s3_prefix = app.config.get('S3_PREFIX', '')
 
     @app.route('/')
     def hello():
