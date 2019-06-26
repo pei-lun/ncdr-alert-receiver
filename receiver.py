@@ -3,7 +3,7 @@ from flask import Flask, request
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, instance_relative_config=True)
 
     app.config.from_pyfile('config.py')
     s3_bucket = app.config['S3_BUCKET']
