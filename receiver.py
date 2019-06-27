@@ -29,7 +29,10 @@ def create_app():
             s3_client = boto3.client('s3')
             s3_key = f'{s3_prefix}{filename}'
             s3_client.put_object(
-                Body=request.get_data(), Bucket=s3_bucket, Key=s3_key
+                Body=request.get_data(),
+                Bucket=s3_bucket,
+                Key=s3_key,
+                ContentType='application/xml',
             )
 
             app.logger.info(
